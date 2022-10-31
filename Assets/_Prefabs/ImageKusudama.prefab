@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2606039185965043449}
   - component: {fileID: 2554947029960912072}
   m_Layer: 5
-  m_Name: ImageKusudam
+  m_Name: ImageKusudama
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

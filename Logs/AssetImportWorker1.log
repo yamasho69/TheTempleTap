@@ -332,3 +332,15 @@ AssetImportParameters requested are different than current active one (requested
   custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 1265.629311 seconds.
+  path: Assets/_Prefabs/ImageKusudam.prefab
+  artifactKey: Guid(fd9ec5826234dae4cb080a5caf805da2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefabs/ImageKusudam.prefab using Guid(fd9ec5826234dae4cb080a5caf805da2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8019989a5d23b1f7c81bb02c91474cb9') in 0.108199 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 9.472194 seconds.
+  path: Assets/_Prefabs/ImageKusudama.prefab
+  artifactKey: Guid(fd9ec5826234dae4cb080a5caf805da2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefabs/ImageKusudama.prefab using Guid(fd9ec5826234dae4cb080a5caf805da2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fae37abef118b412249f53c883d6c0ea') in 0.008087 seconds 
