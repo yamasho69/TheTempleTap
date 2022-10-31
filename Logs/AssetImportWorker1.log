@@ -344,3 +344,9 @@ Received Import Request.
   path: Assets/_Prefabs/ImageKusudama.prefab
   artifactKey: Guid(fd9ec5826234dae4cb080a5caf805da2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
 Start importing Assets/_Prefabs/ImageKusudama.prefab using Guid(fd9ec5826234dae4cb080a5caf805da2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fae37abef118b412249f53c883d6c0ea') in 0.008087 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 446.701052 seconds.
+  path: Assets/_Prefabs/ImageLast.prefab
+  artifactKey: Guid(fd9ec5826234dae4cb080a5caf805da2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefabs/ImageLast.prefab using Guid(fd9ec5826234dae4cb080a5caf805da2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ee474103cb7f204020559911dc8f0801') in 0.010498 seconds 
