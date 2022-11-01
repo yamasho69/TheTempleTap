@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour {
 
 	public Text placeText;
 	public string [] placeString;
+	public ChangeYukkuriButton cYB;
 
 	// Use this for initialization
 	void Start () {
@@ -63,7 +64,7 @@ public class GameManager : MonoBehaviour {
 		imagePlace[placeLevel].SetActive(true);
 		//imageplace.GetComponent<placeManager> ().SetplacePicture (placeLevel);
 		//imageplace.GetComponent<placeManager> ().SetplaceScale (score, nextScore);
-
+		cYB.BackYukkuri();//後ろのゆっくりを表示
 		RefreshScoreText ();
 	}
 	
@@ -200,6 +201,7 @@ public class GameManager : MonoBehaviour {
 				nextScore = nextScoreTable [placeLevel];
 				placeText.text = "ゆっくりプレイス：" + placeString[placeLevel];
 				//imageplace.GetComponent<placeManager> ().SetplacePicture (placeLevel);
+				cYB.BackYukkuri();
 			}
 		}
 	}
@@ -214,11 +216,12 @@ public class GameManager : MonoBehaviour {
 		
 
 		Destroy (smoke, 0.5f);
+		
 	}
 
 	// プレイスが最後まで育った時の演出
 	void ClearEffect () {
-		GameObject kusudama = (GameObject)Instantiate (kusudamaPrefab);
+		GameObject kusudama = (GameObject)Instantiate(kusudamaPrefab);
 		kusudama.transform.SetParent (canvasGame.transform, false);
 
 		audioSource.PlayOneShot (clearSE);

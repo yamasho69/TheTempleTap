@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 //using DG.Tweening;
 
-public class ChangeYukkuriButton : MonoBehaviour
+public  class ChangeYukkuriButton : MonoBehaviour
 {
     // オブジェクト参照
     public GameObject gameManager;// ゲームマネージャー
@@ -17,6 +17,7 @@ public class ChangeYukkuriButton : MonoBehaviour
     public Sprite[] yukkuriButtons;
     public Image buttonImg;
     private GameManager gm;
+    public GameObject[] backYukkuris; //後ろのゆっくり入れる。
     void Start()
     {
          gm = gameManager.GetComponent<GameManager>();
@@ -44,31 +45,19 @@ public class ChangeYukkuriButton : MonoBehaviour
         yukkuris[gm.yukkuriNumber].SetActive(true);
         buttonText.text = yukkuriText[gm.yukkuriNumber];
         buttonImg.sprite = yukkuriButtons[gm.yukkuriNumber];
+        BackYukkuri();
+    }
 
-        /*
-        //0はまりさ
-        if (gm.yukkuriNumber == 0) {
-            
+    public  void BackYukkuri() {
+        int backYukkuriNum = 0;
+        while(gm.placeLevel >= backYukkuriNum) {
+            if(gm.yukkuriNumber == backYukkuriNum) {
+                backYukkuris[backYukkuriNum].SetActive(false);//タップできるゆっくりは後ろに表示しない
+                backYukkuriNum++;
+                continue;
+            }
+            backYukkuris[backYukkuriNum].SetActive(true);//表示されていないゆっくりを表示
+            backYukkuriNum++;
         }
-        //1はれいむ
-        else if (gm.yukkuriNumber == 1) {
-
-        }
-        //2はまりちゃ
-        else if (gm.yukkuriNumber == 2) {
-
-        }
-        //3はれいみゅ
-        else if (gm.yukkuriNumber == 3) {
-
-        }
-        //4はつみゅり
-        else if (gm.yukkuriNumber == 4) {
-
-        }
-        //5はわされいみゅ
-        else {
-
-        }*/
     }
 }
