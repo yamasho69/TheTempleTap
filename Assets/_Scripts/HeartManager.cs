@@ -14,6 +14,8 @@ public class HeartManager : MonoBehaviour
 
 	public Sprite[] heartPicture = new Sprite[3]; //ハートの絵
 
+	
+
 	public enum HEART_KIND {  // オーブの種類を定義
 		PINK,
 		SILVER,
@@ -30,6 +32,9 @@ public class HeartManager : MonoBehaviour
 
 	// オーブが飛ぶ
 	public void FlyHeart() {
+		
+
+		/*
 		RectTransform rect = GetComponent<RectTransform>();
 
 		// オーブの軌跡設定
@@ -46,7 +51,7 @@ public class HeartManager : MonoBehaviour
 		rect.DOScale(
 			new Vector3(0.5f, 0.5f, 0f),
 			0.5f
-		);
+		);*/
 	}
 
 	// オーブアニメ終了後にポイント加算処理をする

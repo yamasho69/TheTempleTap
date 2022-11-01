@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour {
 	public Text placeText;
 	public string [] placeString;
 	public ChangeYukkuriButton cYB;
+	public ParticleSystem likeEffect;
 
 	// Use this for initialization
 	void Start () {
@@ -120,13 +121,14 @@ public class GameManager : MonoBehaviour {
 
 	// ハート生成
 	public void CreateHeart () {
+		/*
 		GameObject orb = (GameObject)Instantiate (heartPrefab);
 		orb.transform.SetParent (canvasGame.transform, false);
 		orb.transform.localPosition = new Vector3 (
 			UnityEngine.Random.Range (-100.0f, 100.0f),
 			UnityEngine.Random.Range (-300.0f, -450.0f),
 			0f);
-
+		
 		// ハートの種類を設定
 		int kind = UnityEngine.Random.Range(0, placeLevel + 1);
 		switch (kind) {
@@ -141,17 +143,18 @@ public class GameManager : MonoBehaviour {
 			break;
 		}
 
-		orb.GetComponent<HeartManager> ().FlyHeart ();
+		orb.GetComponent<HeartManager> ().FlyHeart ();*/
 
 		//audioSource.PlayOneShot (getScoreSE);
 		// ゆっくりアニメ再生
 		//AnimatorStateInfo stateInfo = 
-			//tapYukkuri[yukkuriNumber].GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0);
+		//tapYukkuri[yukkuriNumber].GetComponent<Animator> ().GetCurrentAnimatorStateInfo (0);
 		/*if (stateInfo.fullPathHash == Animator.StringToHash ("Base Layer.get@ImageMarisa")) {
 			// すでに再生中なら先頭から
 			tapYukkuri[yukkuriNumber].GetComponent<Animator> ().Play (stateInfo.fullPathHash, 0, 0.0f);
 		} else {*/
-			tapYukkuri[yukkuriNumber].GetComponent<Animator> ().SetTrigger ("isGetScore");
+		likeEffect.Play();
+		tapYukkuri[yukkuriNumber].GetComponent<Animator> ().SetTrigger ("isGetScore");
 		//}
 	}
 
@@ -168,16 +171,13 @@ public class GameManager : MonoBehaviour {
 
 			placeLevelUp ();
 			RefreshScoreText ();
-			//imageplace.GetComponent<placeManager> ().SetplaceScale (score, nextScore);
 
 			// ゲームクリア判定
 			if ((score == nextScore) && (placeLevel == MAX_LEVEL)) {
 				ClearEffect ();
 			}
 		}
-
 		currentHeart--;
-
 		SaveGameData ();
 	}
 
@@ -195,12 +195,9 @@ public class GameManager : MonoBehaviour {
 				placeLevel++;
 				imagePlace[placeLevel].SetActive(true);//次のプレイスを出す
 				score = 0;
-
 				placeLevelUpEffect ();
-
 				nextScore = nextScoreTable [placeLevel];
 				placeText.text = "ゆっくりプレイス：" + placeString[placeLevel];
-				//imageplace.GetComponent<placeManager> ().SetplacePicture (placeLevel);
 				cYB.BackYukkuri();
 			}
 		}
@@ -211,19 +208,14 @@ public class GameManager : MonoBehaviour {
 		GameObject smoke = (GameObject)Instantiate (smokePrefab);
 		smoke.transform.SetParent (canvasGame.transform, false);
 		smoke.transform.SetSiblingIndex (2);
-
 		audioSource.PlayOneShot (levelUpSE);
-		
-
-		Destroy (smoke, 0.5f);
-		
+		Destroy (smoke, 0.5f);		
 	}
 
 	// プレイスが最後まで育った時の演出
 	void ClearEffect () {
 		GameObject kusudama = (GameObject)Instantiate(kusudamaPrefab);
 		kusudama.transform.SetParent (canvasGame.transform, false);
-
 		audioSource.PlayOneShot (clearSE);
 	}
 
@@ -233,7 +225,6 @@ public class GameManager : MonoBehaviour {
 		PlayerPrefs.SetInt (KEY_LEVEL, placeLevel);
 		PlayerPrefs.SetInt (KEY_HEART, currentHeart);
 		PlayerPrefs.SetString (KEY_TIME, lastDateTime.ToBinary ().ToString ());
-
 		PlayerPrefs.Save ();
 	}
 

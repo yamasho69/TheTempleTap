@@ -23,11 +23,6 @@ public  class ChangeYukkuriButton : MonoBehaviour
          gm = gameManager.GetComponent<GameManager>();
     }
 
-    void Update()
-    {
-        
-    }
-
     public void OnClick() {
         if(gm.placeLevel>gm.yukkuriNumber)
             gm.yukkuriNumber++;

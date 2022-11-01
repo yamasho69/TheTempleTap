@@ -15,7 +15,7 @@ public class TapManager : MonoBehaviour
 	public GameObject gameManager;  // ゲームマネージャー
 
 	public void TapYukkuri() {
-		gameManager.GetComponent<GameManager>().CreateNewHeart();
+		gameManager.GetComponent<GameManager>().CreateHeart();
 		gameManager.GetComponent<GameManager>().RandomizeSfx(voices);
 	}
 }
