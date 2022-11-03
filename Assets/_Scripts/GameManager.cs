@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject particleBox; //パーティクルのフォルダ。レベルアップ時に非表示にする。
 
 	// メンバ変数
-	private int score = 0;			// 現在のスコア
+	[NonSerialized]public int score = 0;			// 現在のスコア
 	private int nextScore = 10;		// レベルアップまでに必要なスコア
 	public int placeLevel = 0;  // プレイスのレベル
 	public bool isClear;
