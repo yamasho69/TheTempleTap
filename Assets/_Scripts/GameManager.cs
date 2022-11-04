@@ -33,10 +33,12 @@ public class GameManager : MonoBehaviour {
 	private int nextScore = 10;		// レベルアップまでに必要なスコア
 	public int placeLevel = 0;  // プレイスのレベル
 	public bool isClear;
+	public AudioClip bgm;
 
 	private int[] nextScoreTable = new int[] {20,30,40,50,99,100};
-									// レベルアップ値
-	private AudioSource audioSource;// オーディオソース
+	// レベルアップ値
+	//private AudioSource audioSource;// オーディオソース
+	SoundManager soundManager;
 
 	public Text placeText;//プレイスの状態テキスト
 	public string [] placeString;//プレイスの状態テキストのストリング
@@ -46,7 +48,9 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		// オーディオソース取得
-		audioSource = this.gameObject.GetComponent<AudioSource> ();
+		GameObject gameObject = GameObject.FindGameObjectWithTag("SoundManager");
+		soundManager = gameObject.GetComponent<SoundManager> ();
+		soundManager.PlayBgm(bgm);
 		// 初期設定
 		score = PlayerPrefs.GetInt (KEY_SCORE, 0);
 		placeLevel = PlayerPrefs.GetInt (KEY_LEVEL, 0);
@@ -117,7 +121,7 @@ public class GameManager : MonoBehaviour {
 			if (placeLevel < MAX_LEVEL) {
 				particleBox.SetActive(false);
 				fadeController.isFadeOut = true;
-				audioSource.PlayOneShot(levelUpSE[placeLevel]);
+				soundManager.PlaySe(levelUpSE[placeLevel]);
 				levelUpText[placeLevel].SetActive(true);
 				Invoke("FadeIn", 3.8f);
 			}
@@ -140,12 +144,8 @@ public class GameManager : MonoBehaviour {
 
 	// プレイスが最後まで育った時の演出
 	void ClearEffect () {
-		//初クリア時のみスコアをリセットする。
-        if (!isClear) {
-			score = 0;
-        }
 		lastText.SetActive(true);
-		audioSource.PlayOneShot (clearSE);
+		soundManager.PlaySe(clearSE);
 		nextScore = nextScoreTable[placeLevel];
 		RefreshScoreText();
 		isClear = true;
@@ -162,9 +162,9 @@ public class GameManager : MonoBehaviour {
 		PlayerPrefs.Save ();
 	}
 
-	//ランダムで音声再生
+	/*//ランダムで音声再生
 	public void RandomizeSfx(params AudioClip[] clips) {
 		var randomIndex = UnityEngine.Random.Range(0, clips.Length);
 		audioSource.PlayOneShot(clips[randomIndex]);
-	}
+	}*/
 }

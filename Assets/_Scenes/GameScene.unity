@@ -631,6 +631,9 @@ MonoBehaviour:
   url: 
   scene: 
   gObject: {fileID: 594086667}
+  delayTime: 0
+  OpenSE: {fileID: 0}
+  CloseSE: {fileID: 0}
 --- !u!1 &123729455
 GameObject:
   m_ObjectHideFlags: 0
@@ -1771,6 +1774,9 @@ MonoBehaviour:
   url: 
   scene: 
   gObject: {fileID: 594086667}
+  delayTime: 0
+  OpenSE: {fileID: 0}
+  CloseSE: {fileID: 0}
 --- !u!1 &467242546
 GameObject:
   m_ObjectHideFlags: 0
@@ -4210,6 +4216,7 @@ MonoBehaviour:
   particleBox: {fileID: 821028095}
   placeLevel: 0
   isClear: 0
+  bgm: {fileID: 8300000, guid: ec0b19ce665dc724a9af85d9e11663c2, type: 3}
   placeText: {fileID: 1595921476}
   placeString:
   - "\u306E\u3063\u3071\u3089"
@@ -7123,6 +7130,9 @@ MonoBehaviour:
   url: 
   scene: Start
   gObject: {fileID: 0}
+  delayTime: 0
+  OpenSE: {fileID: 0}
+  CloseSE: {fileID: 0}
 --- !u!1 &1822483361
 GameObject:
   m_ObjectHideFlags: 0

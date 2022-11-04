@@ -16,10 +16,16 @@ public class TapManager : MonoBehaviour
 
 	// オブジェクト参照
 	public GameObject gameManager;  // ゲームマネージャー
+	SoundManager soundManager;
 
-	public void TapYukkuri() {
+    private void Start() {
+		GameObject gameObject = GameObject.FindGameObjectWithTag("SoundManager");
+		soundManager = gameObject.GetComponent<SoundManager>();
+	}
+
+    public void TapYukkuri() {
 		gameManager.GetComponent<GameManager>().CreateHeart();
-		gameManager.GetComponent<GameManager>().RandomizeSfx(voices);
+		soundManager.RandomizeSfx(voices);
 
 		//https://tech.pjin.jp/blog/2021/03/31/unity_howto_random/
 		int a = UnityEngine.Random.Range(0, 10);
