@@ -1,44 +1,62 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-//using DG.Tweening;
 
 public class ConveniButton : MonoBehaviour {
     [Header("表示したいWebページ")] public String url;
     [Header("移動したいシーン")] public String scene;
     [Header("表示したい・消したいゲームオブジェクト")] public GameObject gObject;
-    [Header("DelayGoToSceneで遅らせたい時間")] public float delayTime;
+    [Header("Delayで遅らせたい時間")] public float delayTime;
     [Header("ウィンドウオープン時またはシーン遷移時になるSE")]public AudioClip OpenSE;
     [Header("ウィンドウクローズ時またはゲーム終了時になるSE")]public AudioClip CloseSE;
+    bool dontSeBarrage;//DelayGoT0Scene,DelayQuitSceneのSEの連射防止
     SoundManager soundManager;
 
     public void Start() {
         GameObject gameObject = GameObject.FindGameObjectWithTag("SoundManager");
         soundManager = gameObject.GetComponent<SoundManager>();
+        dontSeBarrage = false;
     }
 
+    /// <summary>
+    /// シーン遷移
+    /// </summary>
     public void GoToScene() {
         SceneManager.LoadScene(scene);
     }
 
+    /// <summary>
+    /// delayTime分遅れて、シーン遷移
+    /// </summary>
     public void DelayGoToScene() {
-        if (OpenSE) {
+        if (OpenSE&&!dontSeBarrage) {
             soundManager.PlaySe(OpenSE);
+            dontSeBarrage = true;
         }
         Invoke("GoToScene", delayTime);
     }
 
+    /// <summary>
+    /// ゲーム終了
+    /// </summary>
+    public void QuitGame() {
+        Application.Quit();
+    }
+
+    /// <summary>
+    /// delayTime分遅れて、ゲーム終了
+    /// </summary>
     public void DelayQuitGame() {
-        if (CloseSE) {
+        if (CloseSE&&!dontSeBarrage) {
             soundManager.PlaySe(CloseSE);
+            dontSeBarrage = true;
         }
         Invoke("QuitGame", delayTime);
     }
 
+    /// <summary>
+    /// Webページを開く
+    /// </summary>
     public void GoToWeb() {
         if (OpenSE) {
             soundManager.PlaySe(OpenSE);
@@ -46,10 +64,9 @@ public class ConveniButton : MonoBehaviour {
         Application.OpenURL(url);
     }
 
-    public void QuitGame() {
-        Application.Quit();
-    }
-
+    /// <summary>
+    /// ActiveSelfを切り替える
+    /// </summary>
     public void OpenOrClose() {
         if (gObject.activeSelf) {
             if (CloseSE) {

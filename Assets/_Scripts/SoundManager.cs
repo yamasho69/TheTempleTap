@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
@@ -21,33 +20,39 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode sceneMode) {
-        Debug.Log(scene.buildIndex);//sceneの番号はscene.buildIndexで分かる
-    }
-
     void Start() {
-        DontDestroyOnLoad(gameObject);
-        SceneManager.sceneLoaded += OnSceneLoaded;//イベントにメソッドを登録
+        DontDestroyOnLoad(gameObject);//シーン遷移しても破棄されない
     }
 
-    GameObject CheckOtherSoundManager() {
-        return GameObject.FindGameObjectWithTag("SoundManager");
-    }
+    /// <summary>
+    /// BGMを再生
+    /// </summary>
+    /// <param name="clip"></param>
     public void PlayBgm(AudioClip clip) {
         bgmAudioSource.clip = clip;
-        if (clip == null) {
-            return;
-        }
         bgmAudioSource.Play();
     }
+
+    /// <summary>
+    /// BGMを停止
+    /// </summary>
+    public void StopBgm() {
+        bgmAudioSource.Stop();
+    }
+
+    /// <summary>
+    /// 効果音を再生
+    /// </summary>
+    /// <param name="clip"></param>
     public void PlaySe(AudioClip clip) {
-        if (clip == null) {
-            return;
-        }
         seAudioSource.PlayOneShot(clip);
     }
 
-    //ランダムで音声再生
+    /// <summary>
+    /// 引数のAudioClipの中からランダムに再生
+    /// </summary>
+    /// <param name="clips"></param>
+
     public void RandomizeSfx(params AudioClip[] clips) {
         var randomIndex = UnityEngine.Random.Range(0, clips.Length);
         seAudioSource.PlayOneShot(clips[randomIndex]);

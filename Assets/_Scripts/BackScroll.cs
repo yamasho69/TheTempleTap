@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 //using DG.Tweening;
 
+//画像は3枚以上必要
 public class BackScroll : MonoBehaviour {
 	public float speed;
 	[Header("デッドライン")]public　float deadLine;
