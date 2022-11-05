@@ -10,11 +10,11 @@ public class GameManager : MonoBehaviour {
 	private const int MAX_LEVEL = 5;	// 最大プレイスレベル
 
 	// データセーブ用キー
-	private const string KEY_SCORE = "SCORE";	// スコア
-	private const string KEY_LEVEL = "LEVEL";   // レベル
+	//private const string KEY_SCORE = "SCORE";	// スコア
+	//private const string KEY_LEVEL = "LEVEL";   // レベル
 
 	//bool値をセーブデータとして扱う　https://smartgames.hatenablog.com/entry/2016/08/22/010140
-	private const string KEY_CLEAR = "CLEAR";   //クリア済か
+	//private const string KEY_CLEAR = "CLEAR";   //クリア済か
 
 	// オブジェクト参照
 	public GameObject heartPrefab;		// ハートプレハブ
@@ -52,12 +52,18 @@ public class GameManager : MonoBehaviour {
 		soundManager = gameObject.GetComponent<SoundManager> ();
 		soundManager.PlayBgm(bgm);
 		// 初期設定
-		score = PlayerPrefs.GetInt (KEY_SCORE, 0);
-		placeLevel = PlayerPrefs.GetInt (KEY_LEVEL, 0);
-		int clearChack = PlayerPrefs.GetInt(KEY_CLEAR);
-		if(clearChack == 1) {
+		//score = PlayerPrefs.GetInt (KEY_SCORE, 0);
+		//placeLevel = PlayerPrefs.GetInt (KEY_LEVEL, 0);
+		//int clearChack = PlayerPrefs.GetInt(KEY_CLEAR);
+
+		score = ES3.Load<int>("SCORE", defaultValue: 0);
+		placeLevel = ES3.Load<int>("LEVEL", defaultValue: 0);
+		isClear = ES3.Load<bool>("CLEAR", defaultValue:false);
+
+
+		/*if (clearChack == 1) {
 			isClear = true;
-        }
+        }*/
 		if(isClear) {//クリア済の場合
 			ClearEffect();
 		} else {
@@ -140,7 +146,8 @@ public class GameManager : MonoBehaviour {
 		levelUpText[placeLevel - 1].SetActive(false);
 		fadeController.isFadeIn = true;
 		particleBox.SetActive(true);
-    }
+		SaveGameData();//レベルアップ時にセーブしないと、レベルアップ直後にタイトル画面に抜けた時にバグる
+	}
 
 	// プレイスが最後まで育った時の演出
 	void ClearEffect () {
@@ -153,18 +160,17 @@ public class GameManager : MonoBehaviour {
 
 	// ゲームデータをセーブ
 	void SaveGameData () {
+		/*
 		PlayerPrefs.SetInt (KEY_SCORE, score);
 		PlayerPrefs.SetInt (KEY_LEVEL, placeLevel);
         if (!isClear) {//クリア済なら1、未クリアなら0をキーに保存
 			PlayerPrefs.SetInt(KEY_CLEAR, 0);
         } else { PlayerPrefs.SetInt(KEY_CLEAR, 1); }
 
-		PlayerPrefs.Save ();
-	}
+		PlayerPrefs.Save ();*/
 
-	/*//ランダムで音声再生
-	public void RandomizeSfx(params AudioClip[] clips) {
-		var randomIndex = UnityEngine.Random.Range(0, clips.Length);
-		audioSource.PlayOneShot(clips[randomIndex]);
-	}*/
+		ES3.Save<int>("SCORE", score);
+		ES3.Save<int>("LEVEL", placeLevel);
+		ES3.Save<bool>("CLEAR", isClear);
+	}
 }

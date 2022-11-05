@@ -1428,9 +1428,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u30BF\u30A4\u30C8\u30EB\u753B\u9762BGM\n\u300C\u7E01\u5074\u304B\u3089\u773A\u3081\u308B\u6D77\u3068\u821E\u8E0A\u300D\n(\u604B\u8272\u30DE\u30B9\u30BF\u30FC\u30B9\u30D1\u30FC\u30AF\u306E\u30A2\u30EC\u30F3\u30B8)\n
-    by ajapa\u306EBGM\n\n\u30E1\u30A4\u30F3\u753B\u9762BGM\n\u300C\u3010\u6771\u65B9\u30A2\u30EC\u30F3\u30B8\u3011BSNV(\u30DC\u30B5\u30CE\u30F4\u30A1)\u5C11\u5973\u300D\n(\u5C11\u5973\u7DBA\u60F3\u66F2\u306E\u30A2\u30EC\u30F3\u30B8)\n
-    by Ozzz(\u30CB\u30B3\u30CB\u30FB\u30B3\u30E2\u30F3\u30BA\u3000nc191597)"
+  m_Text: "\u30BF\u30A4\u30C8\u30EB\u753B\u9762BGM\n\u300C\u7E01\u5074\u304B\u3089\u773A\u3081\u308B\u6D77\u3068\u821E\u8E0A\u300D\n(\u604B\u8272\u30DE\u30B9\u30BF\u30FC\u30B9\u30D1\u30FC\u30AF\u306E\u30A2\u30EC\u30F3\u30B8)\nby
+    ajapa\u306EBGM\n\n\u30E1\u30A4\u30F3\u753B\u9762BGM\n\u300C\u3010\u6771\u65B9\u30A2\u30EC\u30F3\u30B8\u3011BSNV(\u30DC\u30B5\u30CE\u30F4\u30A1)\u5C11\u5973\u300D\n(\u5C11\u5973\u7DBA\u60F3\u66F2\u306E\u30A2\u30EC\u30F3\u30B8)\nby
+    Ozzz(\u30CB\u30B3\u30CB\u30FB\u30B3\u30E2\u30F3\u30BA\u3000nc191597)"
 --- !u!222 &274518097
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2213,13 +2213,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 1173066647}
   m_HandleRect: {fileID: 810518624}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 5
-  m_WholeNumbers: 1
-  m_Value: 5
+  m_MinValue: -80
+  m_MaxValue: 0
+  m_WholeNumbers: 0
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1066755572}
+        m_TargetAssemblyTypeName: AudioVolume, Assembly-CSharp
+        m_MethodName: SetBGM
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &580243177
 GameObject:
   m_ObjectHideFlags: 0
@@ -4346,6 +4358,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1048204810}
   m_CullTransparentMesh: 1
+--- !u!1 &1066755571
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1066755573}
+  - component: {fileID: 1066755572}
+  m_Layer: 0
+  m_Name: AudioVolume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1066755572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066755571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b44e1d3849457b429e8883d7d4e4bce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 381a081d27dd4bd4d910415edf4846f4, type: 2}
+  bGMSlider: {fileID: 552430698}
+  sESlider: {fileID: 2015787316}
+--- !u!4 &1066755573
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066755571}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1078007706
 GameObject:
   m_ObjectHideFlags: 0
@@ -8069,13 +8127,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 1017855281}
   m_HandleRect: {fileID: 1308000597}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 5
-  m_WholeNumbers: 1
-  m_Value: 5
+  m_MinValue: -80
+  m_MaxValue: 0
+  m_WholeNumbers: 0
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1066755572}
+        m_TargetAssemblyTypeName: AudioVolume, Assembly-CSharp
+        m_MethodName: SetSE
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &2015787317
 RectTransform:
   m_ObjectHideFlags: 0
