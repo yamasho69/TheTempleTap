@@ -30,12 +30,12 @@ public class GameManager : MonoBehaviour {
 
 	// メンバ変数
 	[NonSerialized]public int score = 0;			// 現在のスコア
-	private int nextScore = 10;		// レベルアップまでに必要なスコア
+	private int nextScore = 100;		// レベルアップまでに必要なスコア
 	public int placeLevel = 0;  // プレイスのレベル
 	public bool isClear;
 	public AudioClip bgm;
 
-	private int[] nextScoreTable = new int[] {20,30,40,50,99,100};
+	private int[] nextScoreTable = new int[] {100,300,500,800,1000,2000};
 	// レベルアップ値
 	//private AudioSource audioSource;// オーディオソース
 	SoundManager soundManager;

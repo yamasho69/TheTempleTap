@@ -13,6 +13,7 @@ public class StartManager : MonoBehaviour
     public AudioClip yukkurikka_Voice;
     public AudioClip bgm;
     public GameObject buttons;
+    public GameObject quitbutton;
     SoundManager soundManager;
     void Start()
     {
@@ -33,6 +34,9 @@ public class StartManager : MonoBehaviour
         soundManager.PlayBgm(bgm);
         yield return new WaitForSeconds(0.5f);
         buttons.SetActive(true);
+        #if UNITY_WEBGL
+        quitbutton.SetActive(false);
+        #endif
         yield return null;
     }
 }

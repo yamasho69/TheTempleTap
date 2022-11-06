@@ -3,35 +3,34 @@ using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class AudioVolume : MonoBehaviour {
-    public AudioMixer audioMixer;
-    public Slider bGMSlider;
-    public Slider sESlider;
+    public AudioMixer audioMixer;//オーディオミキサーを登録
+    public Slider bGMSlider;//BGMのスライダーを登録
+    public Slider sESlider;//SEのスライダーを登録
 
     private void Start() {
-        float bgmVolume = ES3.Load<float>("BGM_VOLUME", 1);
-        float seVolume = ES3.Load<float>("SE_VOLUME", 5);
-        bGMSlider.value = bgmVolume;
-        sESlider.onValueChanged.AddListener(SetSE);
-        SetSE(seVolume);
+        //BGMとSEのスライダーの位置をロード。データがなければ最大値を入れる。
+        float bgmSliderPosition = ES3.Load<float>("BGM_SLIDER", 5.0f);
+        float seSliderPosition = ES3.Load<float>("SE_SLIDER", 5.0f);
+        //BGMとSEのセットメソッドを呼び出す
+        SetBGM(bgmSliderPosition);
+        SetSE(seSliderPosition);
     }
 
-    public void SetBGM(float volume) {
-        bGMSlider.value = volume;
+    public void SetBGM(float bgmSliderPosition) {
+        //スライダーの位置から相対量をdBに変換してvolumeに入れる
+        var volume = Mathf.Clamp(Mathf.Log10(bgmSliderPosition/5) * 20f, -80f, 0f);
+        //スライダーの位置のデータとビジュアルを合わせる
+        bGMSlider.value = bgmSliderPosition;
+        //オーディオミキサーにvolumeの値をセットする。
         audioMixer.SetFloat("BGM", volume);
-        ES3.Save<float>("BGM_VOLUME", volume);
+        //スライダーの位置をセーブする。
+        ES3.Save<float>("BGM_SLIDER", bGMSlider.value);
     }
 
-    public void SetSE(float volume) {
-        //sESlider.value = volume;
-        //audioMixer.SetFloat("SE", volume);
-        //ES3.Save<float>("SE_VOLUME", volume);
-
-        //5段階補正
-        var a = volume /= 5;
-
-        //-80~0に変換
-        var marume = Mathf.Clamp(Mathf.Log10(a) * 20f, -80f, 0f); //marume 0.2  a = 3/5
-        audioMixer.SetFloat("SE", marume);
-        ES3.Save<float>("SE_VOLUME", volume);
+    public void SetSE(float seSliderPosition) {
+        var volume = Mathf.Clamp(Mathf.Log10(seSliderPosition/ 5) * 20f, -80f, 0f);
+        sESlider.value = seSliderPosition;
+        audioMixer.SetFloat("SE", volume);
+        ES3.Save<float>("SE_SLIDER", sESlider.value);
     }
 }
