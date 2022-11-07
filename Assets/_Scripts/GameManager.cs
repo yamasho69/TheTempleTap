@@ -1,20 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
 using UnityEngine.UI;
 using System;
 
 public class GameManager : MonoBehaviour {
 	// 定数定義
 	private const int MAX_LEVEL = 5;	// 最大プレイスレベル
-
-	// データセーブ用キー
-	//private const string KEY_SCORE = "SCORE";	// スコア
-	//private const string KEY_LEVEL = "LEVEL";   // レベル
-
-	//bool値をセーブデータとして扱う　https://smartgames.hatenablog.com/entry/2016/08/22/010140
-	//private const string KEY_CLEAR = "CLEAR";   //クリア済か
 
 	// オブジェクト参照
 	public GameObject heartPrefab;		// ハートプレハブ
@@ -28,6 +18,8 @@ public class GameManager : MonoBehaviour {
 	public GameObject[] levelUpText;//レベルアップ時のテキスト
 	public GameObject particleBox; //パーティクルのフォルダ。レベルアップ時に非表示にする。
 
+	public Interstitial interstitial;//インタースティシャル広告スクリプト
+
 	// メンバ変数
 	[NonSerialized]public int score = 0;			// 現在のスコア
 	private int nextScore = 100;		// レベルアップまでに必要なスコア
@@ -35,7 +27,8 @@ public class GameManager : MonoBehaviour {
 	public bool isClear;
 	public AudioClip bgm;
 
-	private int[] nextScoreTable = new int[] {100,300,500,800,1000,2000};
+	//private int[] nextScoreTable = new int[] {100,300,500,100,1000,2000};
+	private int[] nextScoreTable = new int[] { 10, 30, 50, 70, 80, 100 };//テスト用
 	// レベルアップ値
 	//private AudioSource audioSource;// オーディオソース
 	SoundManager soundManager;
@@ -44,9 +37,15 @@ public class GameManager : MonoBehaviour {
 	public string [] placeString;//プレイスの状態テキストのストリング
 	public ChangeYukkuriButton cYB;//ゆっくりきりかえボタン
 	public FadeController fadeController;
+	public bool test;//テスト環境の場合はオンにする。
 
 	// Use this for initialization
 	void Start () {
+		//gamemanagerにテスト用のbool値を用意trueならテスト用と薄く画面に表示される
+		if (test) {
+			GameObject g = GameObject.FindWithTag("Test");
+			g.SetActive(true);
+		}
 		// オーディオソース取得
 		GameObject gameObject = GameObject.FindGameObjectWithTag("SoundManager");
 		soundManager = gameObject.GetComponent<SoundManager> ();
@@ -125,9 +124,11 @@ public class GameManager : MonoBehaviour {
 	void placeLevelUp () {
 		if (score >= nextScore) {
 			if (placeLevel < MAX_LEVEL) {
+				interstitial.loadInterstitialAd();//インタースティシャル広告を読み込む
+				interstitial.showInterstitialAd();//インタースティシャル広告を表示する
 				particleBox.SetActive(false);
 				fadeController.isFadeOut = true;
-				soundManager.PlaySe(levelUpSE[placeLevel]);
+				soundManager.PlaySe(levelUpSE[placeLevel]);//少し遅らせる
 				levelUpText[placeLevel].SetActive(true);
 				Invoke("FadeIn", 3.8f);
 			}
