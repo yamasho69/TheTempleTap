@@ -50,19 +50,11 @@ public class GameManager : MonoBehaviour {
 		GameObject gameObject = GameObject.FindGameObjectWithTag("SoundManager");
 		soundManager = gameObject.GetComponent<SoundManager> ();
 		soundManager.PlayBgm(bgm);
-		// 初期設定
-		//score = PlayerPrefs.GetInt (KEY_SCORE, 0);
-		//placeLevel = PlayerPrefs.GetInt (KEY_LEVEL, 0);
-		//int clearChack = PlayerPrefs.GetInt(KEY_CLEAR);
 
 		score = ES3.Load<int>("SCORE", defaultValue: 0);
 		placeLevel = ES3.Load<int>("LEVEL", defaultValue: 0);
 		isClear = ES3.Load<bool>("CLEAR", defaultValue:false);
 
-
-		/*if (clearChack == 1) {
-			isClear = true;
-        }*/
 		if(isClear) {//クリア済の場合
 			ClearEffect();
 		} else {
@@ -90,7 +82,6 @@ public class GameManager : MonoBehaviour {
 			return;
 		}
 
-
 		if (score < nextScore) {
 			score += getScore;
 
@@ -103,7 +94,9 @@ public class GameManager : MonoBehaviour {
 
 			// ゲームクリア判定
 			if ((score == nextScore) && (placeLevel == MAX_LEVEL)&&!isClear) {//クリアしてないも条件に追加
-				ClearEffect ();
+				interstitial.loadInterstitialAd();//インタースティシャル広告を読み込む
+				interstitial.showInterstitialAd();//インタースティシャル広告を表示する
+				Invoke("ClearEffect", 0.2f);
             }
 		}
 		SaveGameData ();
@@ -124,15 +117,21 @@ public class GameManager : MonoBehaviour {
 	void placeLevelUp () {
 		if (score >= nextScore) {
 			if (placeLevel < MAX_LEVEL) {
-				interstitial.loadInterstitialAd();//インタースティシャル広告を読み込む
-				interstitial.showInterstitialAd();//インタースティシャル広告を表示する
-				particleBox.SetActive(false);
-				fadeController.isFadeOut = true;
-				soundManager.PlaySe(levelUpSE[placeLevel]);//少し遅らせる
-				levelUpText[placeLevel].SetActive(true);
-				Invoke("FadeIn", 3.8f);
+				if (placeLevel == 3) {
+					interstitial.loadInterstitialAd();//インタースティシャル広告を読み込む
+					interstitial.showInterstitialAd();//インタースティシャル広告を表示する
+				}
+				Invoke("LevelUpSecond", 0.2f);
 			}
 		}
+	}
+
+	void LevelUpSecond() {
+		particleBox.SetActive(false);
+		fadeController.isFadeOut = true;
+		soundManager.PlaySe(levelUpSE[placeLevel]);//少し遅らせる
+		levelUpText[placeLevel].SetActive(true);
+		Invoke("FadeIn", 3.8f);
 	}
 
 	void FadeIn() {
@@ -157,19 +156,11 @@ public class GameManager : MonoBehaviour {
 		nextScore = nextScoreTable[placeLevel];
 		RefreshScoreText();
 		isClear = true;
+		SaveGameData();//クリア時にセーブしないと、レベルアップ直後にタイトル画面に抜けた時にバグる。
 	}
 
 	// ゲームデータをセーブ
 	void SaveGameData () {
-		/*
-		PlayerPrefs.SetInt (KEY_SCORE, score);
-		PlayerPrefs.SetInt (KEY_LEVEL, placeLevel);
-        if (!isClear) {//クリア済なら1、未クリアなら0をキーに保存
-			PlayerPrefs.SetInt(KEY_CLEAR, 0);
-        } else { PlayerPrefs.SetInt(KEY_CLEAR, 1); }
-
-		PlayerPrefs.Save ();*/
-
 		ES3.Save<int>("SCORE", score);
 		ES3.Save<int>("LEVEL", placeLevel);
 		ES3.Save<bool>("CLEAR", isClear);
